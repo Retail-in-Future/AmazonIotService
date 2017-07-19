@@ -5,7 +5,8 @@ pipeline {
     stages {
         stage("Run Test") {
             steps {
-                sh 'python manage.py test'
+                sh 'scripts/ci/build.sh'
+                sh 'scripts/ci/test.sh'
             }
         }
     }
