@@ -5,8 +5,8 @@ pipeline {
     stages {
         stage("Run Test") {
             steps {
-                sh 'sudo Script/ci/build.sh'
-                sh 'sudo Script/ci/test.sh'
+                sh 'Script/ci/build.sh'
+                sh 'Script/ci/test.sh'
             }
         }
     }
