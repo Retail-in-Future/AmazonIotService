@@ -16,7 +16,7 @@ echo -e "$top_dir"
 #               BEGINNING OF MAIN
 ##########################################################
 
-pushd $topdir
+pushd $top_dir
 
 app_name=$(basename $(pwd))
 docker_image_id=`echo "local/${app_name}:latest" | tr "[:upper:]" "[:lower:]"`
@@ -27,6 +27,6 @@ set -o errexit -o nounset \
 && python manage.py test \
 EOF
 
-#popd
+popd
 
 # End of script
