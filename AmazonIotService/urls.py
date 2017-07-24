@@ -14,7 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
+from rest_framework.routers import DefaultRouter
 
-urlpatterns = [
-    url(r'^', include('api.urls'))
-]
+from api.views import ThingsViewSet
+
+router = DefaultRouter()
+router.register(r'',ThingsViewSet,'api')
+
+urlpatterns = [url(r'',include(router.urls))]
