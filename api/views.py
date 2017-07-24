@@ -1,5 +1,6 @@
 from django.http import HttpResponse
-
+from api.iot.aws.provider import AWSIotProvider
 
 def index(request):
-    return HttpResponse("Helloworlds");
+    aWSIotProvider = AWSIotProvider();
+    return HttpResponse(aWSIotProvider.list_things());
