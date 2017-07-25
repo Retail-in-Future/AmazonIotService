@@ -10,3 +10,10 @@ class AwsIotProvider(object):
             return self._client.list_things()
         except:
             return None
+
+    def update_thing(self, thing, data):
+        try:
+            ret = self._client.update_thing(thingName=thing, attributePayload={'attributes': data, 'merge': True})
+            return ret['ResponseMetadata']['HTTPStatusCode'] == 200
+        except:
+            return False

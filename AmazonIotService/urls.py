@@ -14,11 +14,21 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
-from rest_framework.routers import DefaultRouter
+from rest_framework.routers import DefaultRouter, Route
 
 from api.views import ThingsViewSet
 
 router = DefaultRouter()
-router.register(r'',ThingsViewSet,'api')
+router.register('', ThingsViewSet, 'api')
+router.routes.append(
+    Route(
+        url=r'^api/things/(?P<thing>[a-zA-Z0-9_]+)$',
+        name='',
+        mapping={
+            'post': 'update_thing',
+        },
+        initkwargs={}
+    )
+)
 
-urlpatterns = [url(r'',include(router.urls))]
+urlpatterns = [url(r'', include(router.urls))]

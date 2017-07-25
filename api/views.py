@@ -13,3 +13,8 @@ class ThingsViewSet(viewsets.ViewSet):
         if things_response is None:
             return Response(status=status.HTTP_503_SERVICE_UNAVAILABLE)
         return Response({'things': things_response['things']},status=status.HTTP_200_OK)
+
+    def update_thing(self, request, thing):
+        if not self.awsIotProvider.update_thing(thing,request.data):
+            return Response(status=status.HTTP_503_SERVICE_UNAVAILABLE)
+        return Response(status=status.HTTP_200_OK)
