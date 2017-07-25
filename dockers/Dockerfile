@@ -3,7 +3,7 @@ FROM fedora:25
 RUN dnf install -y python-pip
 RUN pip install --upgrade pip
 RUN pip install boto3
-RUN pip install django djangorestframework
+RUN pip install django djangorestframework mock
 
 ENV PROJECT_PATH=/root/project
 
