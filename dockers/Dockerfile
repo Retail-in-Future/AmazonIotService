@@ -6,6 +6,7 @@ RUN dnf install -y python-devel
 RUN pip3 install --upgrade pip
 RUN pip3 install boto3
 RUN pip3 install setuptools
+RUN pip3 install requests
 RUN pip3 install django djangorestframework mock
 
 ENV PROJECT_PATH=/root/project
