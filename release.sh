@@ -1,6 +1,4 @@
 #!/bin/bash
-docker_image_name=`echo "docker.retail.com/retail/amazoniot:1.0"`
-
-docker build --rm -t $docker_image_id -f DockerfileProd .
-docker push $docker_image_name
+docker build --rm -t docker.retail.com/retail/amazoniot:1.0 -f DockerfileProd .
+docker push docker.retail.com/retail/amazoniot:1.0
 # End of script
