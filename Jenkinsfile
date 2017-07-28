@@ -12,7 +12,7 @@ pipeline {
 
         stage("Release") {
             steps {
-                sh 'release.sh'
+                sh './release.sh'
             }
         }
     }
