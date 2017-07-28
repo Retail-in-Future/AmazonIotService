@@ -1,0 +1,31 @@
+FROM fedora:25
+MAINTAINER "dgchen"
+
+RUN dnf install -y python3-pip
+RUN dnf install -y gcc-c++
+RUN dnf install -y python-devel
+RUN pip3 install --upgrade pip
+RUN pip3 install boto3
+RUN pip3 install setuptools
+RUN pip3 install django djangorestframework mock
+#
+ENV PROJECT_PATH=/root/project/
+
+RUN mkdir /root/.aws/
+RUN chmod 0755 /root/.aws
+COPY ./config/config /root/.aws/
+COPY ./config/credentials /root/.aws/
+
+
+RUN ls /root/.aws/
+
+WORKDIR $PROJECT_PATH
+COPY ./ AmazonIotService/
+COPY startup.sh AmazonIotService/
+RUN chmod u+x AmazonIotService/startup.sh
+
+WORKDIR $PROJECT_PATH/AmazonIotService/
+
+EXPOSE 8000
+
+CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
