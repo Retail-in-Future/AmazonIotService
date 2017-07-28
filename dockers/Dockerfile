@@ -10,8 +10,8 @@ RUN pip3 install django djangorestframework mock
 
 ENV PROJECT_PATH=/root/project
 
-RUN mkdir ~/.aws/
-COPY config/* ~/.aws/
+RUN mkdir /root/.aws/
+COPY config/* /root/.aws/
 
 WORKDIR $PROJECT_PATH
 COPY ./ AmazonIotService/
