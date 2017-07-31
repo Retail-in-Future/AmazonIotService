@@ -35,7 +35,7 @@ class ThingsApiTest(TestCase):
         assert status.HTTP_200_OK == response.status_code
 
     @mock.patch.object(AwsIotProvider, 'update_thing')
-    def test_should_return_service_unavaibal__when_update_failed(self, mock_update_thing):
+    def test_should_return_service_unavailable__when_update_failed(self, mock_update_thing):
         mock_update_thing.return_value = False
         attribute = {'color': 'Green'}
 
@@ -53,3 +53,12 @@ class ThingsApiTest(TestCase):
 
         assert status.HTTP_200_OK == response.status_code
         assert 'zhongguo' == json_obj['state']['desired']['attribute1']
+
+    @mock.patch.object(AwsIotProvider, 'get_thing')
+    def test_should_service_unavailable_when_get_failed(self,mock_list_thing):
+        mock_list_thing.return_value = None
+        thingName = 'Green_Lights01'
+
+        response = self.client.get(url=self.base_url + '/things/' + thingName)
+        assert status.HTTP_503_SERVICE_UNAVAILABLE == response.status_code
+

@@ -15,4 +15,10 @@ class AwsIotProvider(object):
             return False
 
     def get_thing(self, thingName):
-        return self._client.get_thing_shadow(thingName=thingName);
+        try:
+            ret = self._client.get_thing_shadow(thingName=thingName)
+            if ret['ResponseMetadata']['HTTPStatusCode'] == 200:
+                return json.loads(str(ret['payload'].read(),'utf-8'))
+            return None
+        except:
+            return None

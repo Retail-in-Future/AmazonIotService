@@ -12,4 +12,7 @@ class ThingsViewSet(viewsets.ViewSet):
         return Response(status=status.HTTP_200_OK)
 
     def get_thing(self, request, thing):
-        return Response(self.awsIotProvider.get_thing(thing), status=status.HTTP_200_OK)
+        get_result = self.awsIotProvider.get_thing(thing)
+        if get_result is None:
+            return Response(status=status.HTTP_503_SERVICE_UNAVAILABLE)
+        return Response(get_result, status=status.HTTP_200_OK)
