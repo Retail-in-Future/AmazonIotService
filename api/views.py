@@ -7,6 +7,9 @@ class ThingsViewSet(viewsets.ViewSet):
     awsIotProvider = AwsIotProvider()
 
     def update_thing(self, request, thing):
-        if not self.awsIotProvider.update_thing(thing,request.data):
+        if not self.awsIotProvider.update_thing(thing, request.data):
             return Response(status=status.HTTP_503_SERVICE_UNAVAILABLE)
         return Response(status=status.HTTP_200_OK)
+
+    def get_thing(self, request, thing):
+        return Response(self.awsIotProvider.get_thing(thing), status=status.HTTP_200_OK)

@@ -23,9 +23,10 @@ router.register('', ThingsViewSet, 'api')
 router.routes.append(
     Route(
         url=r'^api/things/(?P<thing>[a-zA-Z0-9_]+)$',
-        name='',
+        name='thing_resource',
         mapping={
             'post': 'update_thing',
+            'get': 'get_thing',
         },
         initkwargs={}
     )
