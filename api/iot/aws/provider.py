@@ -22,3 +22,10 @@ class AwsIotProvider(object):
             return None
         except:
             return None
+
+    def delete_thing(self,thingName):
+        try:
+            ret = self._client.delete_thing_shadow(thingName=thingName)
+            return ret['ResponseMetadata']['HTTPStatusCode'] == 200
+        except:
+            return False

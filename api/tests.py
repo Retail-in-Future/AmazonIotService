@@ -62,3 +62,18 @@ class ThingsApiTest(TestCase):
         response = self.client.get(url=self.base_url + '/things/' + thingName)
         assert status.HTTP_503_SERVICE_UNAVAILABLE == response.status_code
 
+    @mock.patch.object(AwsIotProvider, 'delete_thing')
+    def test_should_return_ok_when_delete_thing_shadow_success(self, mock_delete_thing):
+        mock_delete_thing.return_value = True
+        thingName = 'Green_Lights01'
+
+        response = self.client.delete(url=self.base_url + '/things/' + thingName)
+        assert status.HTTP_200_OK == response.status_code
+
+    @mock.patch.object(AwsIotProvider, 'delete_thing')
+    def test_should_return_service_unavailable_when_delete_thing_shadow_success(self, mock_delete_thing):
+        mock_delete_thing.return_value = False
+        thingName = 'Green_Lights01'
+
+        response = self.client.delete(url=self.base_url + '/things/' + thingName)
+        assert status.HTTP_503_SERVICE_UNAVAILABLE == response.status_code

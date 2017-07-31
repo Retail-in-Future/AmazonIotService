@@ -16,3 +16,8 @@ class ThingsViewSet(viewsets.ViewSet):
         if get_result is None:
             return Response(status=status.HTTP_503_SERVICE_UNAVAILABLE)
         return Response(get_result, status=status.HTTP_200_OK)
+
+    def delete_thing(self, request, thing):
+        if not self.awsIotProvider.delete_thing(thing):
+            return Response(status = status.HTTP_503_SERVICE_UNAVAILABLE)
+        return Response(status = status.HTTP_200_OK)

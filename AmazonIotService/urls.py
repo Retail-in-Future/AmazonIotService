@@ -27,6 +27,7 @@ router.routes.append(
         mapping={
             'post': 'update_thing',
             'get': 'get_thing',
+            'delete': 'delete_thing'
         },
         initkwargs={}
     )
