@@ -1,19 +1,12 @@
 #!/usr/bin/env groovy
+node {
+    timestamps {
+        stage 'Run Test'
+        checkout scm
+        sh 'Script/ci/build.sh'
+        sh 'Script/ci/test.sh'
 
-pipeline {
-    agent any
-    stages {
-        stage("Run Test") {
-            steps {
-                sh 'Script/ci/build.sh'
-                sh 'Script/ci/test.sh'
-            }
-        }
-
-        stage("Release") {
-            steps {
-                sh './release.sh'
-            }
-        }
+        stage 'Release'
+        sh "EPOCH=1 VERSION=${env.BUILD_NUMBER} make release"
     }
 }
